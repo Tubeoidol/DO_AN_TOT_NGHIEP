@@ -1,0 +1,45 @@
+Trường hợp với bộ dữ liệu huấn luyện 20*20
+
+digit_w = 20
+digit_h = 20
+
+write_path = "train/chars2/"
+
+a = []
+
+def get_digit_data(path):  #:, digit_list, label_list):
+
+    digit_list = []
+    label_list = []
+
+    for number in range(10):
+        i = 0
+        for img_org_path in glob.iglob(path + str(number) + '/*.jpg'):
+            print(img_org_path)
+            img = cv2.imread(img_org_path, 0)
+            img = np.array(img)
+            img = img.reshape(-1, digit_h * digit_w)
+
+            # print(img.shape)
+
+            digit_list.append(img)
+            label_list.append([int(number)])
+
+    for number in string.ascii_uppercase:
+        #number = chr(number)
+        print(number)
+        a.append(ord(number))
+
+        i=0
+        for img_org_path in glob.iglob(path + str(number) + '/*.jpg'):
+            print(img_org_path)
+            img = cv2.imread(img_org_path, 0)
+            img = np.array(img)
+            img = img.reshape(-1, digit_h * digit_w)
+
+            # print(img.shape)
+
+            digit_list.append(img)
+            label_list.append([int(ord(number))])
+
+    return digit_list, label_list
