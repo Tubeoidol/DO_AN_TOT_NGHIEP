@@ -6,7 +6,13 @@ digit_h = 60
 
 model_svm = cv2.ml.SVM_load('dataset/trained/svm.xml')
 
-OriImg = cv2.imread('dataset/test/anh_nghieng_ro.jpg', 1)
+# OriImg = cv2.imread('dataset/test/anh_nghieng_ro.jpg', 1)
+# OriImg = cv2.imread('E:/DATN/dataset/test/33.jpg', 1)
+# OriImg = cv2.imread('E:/DATN/dataset/test/31.jpg', 1)
+OriImg = cv2.imread('E:/DATN/dataset/test/29.jpg', 1)
+# OriImg = cv2.imread('E:/DATN/dataset/test/12.jpg', 1)
+# nhận diện thiếu ký tự 12,14,16
+#nhận diện đủ 29,31,32,33
 plate_cascade = cv2.CascadeClassifier("dataset/detect_resource/cascade.xml")
 plates = plate_cascade.detectMultiScale(OriImg, 1.1, 3)
 img = OriImg
@@ -66,7 +72,8 @@ for c in (cnts):
         else:
             result = chr(result)
         plate_number += result + ' '
-        cv2.putText(imgtemp, result, (x - 50, y + 50), cv2.FONT_HERSHEY_COMPLEX, 3, (0, 255, 0), 2, cv2.LINE_AA)
+        cv2.putText(imgtemp, result, (x - 50, y + 50), cv2.FONT_HERSHEY_COMPLEX,
+                    3, (0, 255, 0), 2, cv2.LINE_AA)
 
 stringarr = plate_number.strip()
 stringarr = stringarr.split(" ")

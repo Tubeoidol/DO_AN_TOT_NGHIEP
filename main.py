@@ -127,7 +127,9 @@ def findLP_img(OriImg):
 
 
 if __name__ == "__main__":
+    # OriImg = cv2.imread('dataset/test/anh_nghieng_ro.jpg', 1)
     OriImg = cv2.imread('dataset/test/anh_nghieng_ro.jpg', 1)
+    OriImg = cv2.imread('E:/DATN/dataset/test/29.jpg', 1)
     img, plate_num = findLP_img(OriImg)
     cv2.imshow('Image', img)
     cv2.waitKey()

@@ -61,3 +61,35 @@ svm_model.train(digit_list, cv2.ml.ROW_SAMPLE, label_list)
 
 svm_model.save("svm.xml")
 
+
+
+# đánh giá mô hình
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.model_selection import train_test_split
+
+# Chia dữ liệu thành tập huấn luyện và kiểm tra
+X_train, X_test, y_train, y_test = train_test_split(
+    digit_list, label_list, test_size=0.2, random_state=42
+)
+
+# Huấn luyện lại mô hình trên tập huấn luyện
+svm_model.train(X_train, cv2.ml.ROW_SAMPLE, y_train)
+
+# Dự đoán trên tập kiểm tra
+_, y_pred = svm_model.predict(X_test)
+
+# Chuyển đổi nhãn về định dạng phù hợp
+y_test = y_test.flatten()
+y_pred = y_pred.flatten()
+
+# Tính các chỉ số
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred, average='weighted')  # 'weighted' cho nhiều lớp
+recall = recall_score(y_test, y_pred, average='weighted')
+f1 = f1_score(y_test, y_pred, average='weighted')
+
+# In kết quả
+print(f"Accuracy: {accuracy:.2f}")
+print(f"Precision: {precision:.2f}")
+print(f"Recall: {recall:.2f}")
+print(f"F1-Score: {f1:.2f}")
